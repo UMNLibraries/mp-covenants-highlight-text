@@ -1,0 +1,5 @@
+# 1 term
+sam build && sam local generate-event s3 put --bucket "covenants-deed-images" --key "ocr/hits/mn-dakota-county/Abstract_Images_Books_Deeds 104-277 by Book and Page/DEEDS/doc_NONE_book_104_page_590.json" | sam local invoke -e -
+
+# 2 terms
+sam build && sam local generate-event s3 put --bucket "covenants-deed-images" --key "ocr/hits/mn-dakota-county/Torrens_Images_Certificates_1-15000 by Cert #/TORRENS_CERT/doc_014958_book_047_page_280.json" --uuid 0ff43da3b9a04b3b807490117b72050e | sam local invoke -e -
