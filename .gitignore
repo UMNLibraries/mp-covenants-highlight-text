@@ -243,3 +243,7 @@ $RECYCLE.BIN/
 */build/*
 
 # End of https://www.gitignore.io/api/osx,linux,python,windows,pycharm,visualstudiocode
+
+# Deed Machine specific
+.aws-sam/build.toml
+samconfig.toml
