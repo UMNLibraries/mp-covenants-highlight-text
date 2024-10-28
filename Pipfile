@@ -5,6 +5,10 @@ name = "pypi"
 
 [packages]
 pytest = "*"
+toml = "*"
+boto3 = "*"
+pillow = "*"
+regex = "*"
 
 [dev-packages]
 
