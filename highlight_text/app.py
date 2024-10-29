@@ -145,7 +145,11 @@ def lambda_handler(event, context):
         key = urllib.parse.unquote_plus(
             event['Records'][0]['s3']['object']['key'], encoding='utf-8')
         orig_img = urllib.parse.unquote_plus(
-            event['Records'][0]['s3']['object']['orig'], encoding='utf-8')
+            event['Records'][0]['s3']['object']['orig_img'], encoding='utf-8')
+        web_img = urllib.parse.unquote_plus(
+            event['Records'][0]['s3']['object']['web_img'], encoding='utf-8')
+        ocr_json = urllib.parse.unquote_plus(
+            event['Records'][0]['s3']['object']['ocr_json'], encoding='utf-8')
         public_uuid = urllib.parse.unquote_plus(
             event['Records'][0]['s3']['object']['uuid'], encoding='utf-8')
         bool_hit = True
@@ -159,7 +163,9 @@ def lambda_handler(event, context):
         # Most common: Coming from previous step function lambda, which should be output from mp-term-search-basic
         bucket = event['body']['bucket']
         key = event['body']['match_file']
-        orig_img = event['body']['orig']
+        orig_img = event['body']['orig_img']
+        web_img = event['body']['web_img']
+        ocr_json = event['body']['ocr_json']
         public_uuid = event['body']['uuid']
         bool_hit = event['body']['bool_hit']
 
@@ -236,7 +242,9 @@ def lambda_handler(event, context):
             "message": message,
             "bucket": bucket,
             "orig_img": orig_img,
+            "web_img": web_img,
             "highlighted_img": highlight_key,
+            "ocr_json": ocr_json,
             "uuid": public_uuid
         }
     }
