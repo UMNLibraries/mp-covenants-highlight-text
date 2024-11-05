@@ -136,6 +136,26 @@ def mn_ramsey_hit_fuzzy_true_fuzzy_2():
     )
 
 
+@pytest.fixture()
+def nc_forsyth_hit_fuzzy_true_fuzzy_multi_term():
+    """ Generates API GW Event"""
+    return build_lambda_input(
+        s3_bucket,
+        "raw/nc-forsyth-county/deedhold/t/0612/06120081.001.tif",
+        "dc9228dc3aae4649a699b515058e1edc"
+    )
+
+
+@pytest.fixture()
+def nc_forsyth_hit_fuzzy_true_fuzzy_multi_term_2():
+    """ Generates API GW Event"""
+    return build_lambda_input(
+        s3_bucket,
+        "raw/nc-forsyth-county/deedhold/t/0606/06060130.001.tif",
+        "834ba33328a944b8ae84e64679208ddb"
+    )
+
+
 def test_input_output_results(mn_ramsey_hit_fuzzy_true_fuzzy_2):
     ''' Does this run appropriately with output of mp-covenants-term-search-fuzzy Lambda?'''
     fixture = mn_ramsey_hit_fuzzy_true_fuzzy_2
@@ -273,6 +293,35 @@ def test_match_true_fuzzy_1(wi_milw_hit_fuzzy_true_fuzzy_1):
 def test_match_true_fuzzy_2(mn_ramsey_hit_fuzzy_true_fuzzy_2):
 
     ret = app.lambda_handler(mn_ramsey_hit_fuzzy_true_fuzzy_2, "")
+    data = ret["body"]
+    print(data)
+
+    assert ret["statusCode"] == 200
+    assert data["message"] == "highlight test success"
+
+    # Check if image in correct mode
+    im = open_s3_image(data['bucket'], data['highlighted_img'])
+    assert im.mode == 'RGB'
+
+
+
+def test_true_fuzzy_multi_term(nc_forsyth_hit_fuzzy_true_fuzzy_multi_term):
+
+    ret = app.lambda_handler(nc_forsyth_hit_fuzzy_true_fuzzy_multi_term, "")
+    data = ret["body"]
+    print(data)
+
+    assert ret["statusCode"] == 200
+    assert data["message"] == "highlight test success"
+
+    # Check if image in correct mode
+    im = open_s3_image(data['bucket'], data['highlighted_img'])
+    assert im.mode == 'RGB'
+
+
+def test_true_fuzzy_multi_term_2(nc_forsyth_hit_fuzzy_true_fuzzy_multi_term_2):
+
+    ret = app.lambda_handler(nc_forsyth_hit_fuzzy_true_fuzzy_multi_term_2, "")
     data = ret["body"]
     print(data)
 

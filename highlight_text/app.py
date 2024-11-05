@@ -27,8 +27,14 @@ def test_term_search(next_part, haystack, fuzzy=False):
     # print(fuzzy)
     # test_word = haystack_word['Text'].lower()
     if fuzzy:
-        tolerance = "{e<=3}"
-        next_part_fuzzy = regex.compile(f"(?:\\b{next_part}){tolerance}")
+        # Make tolerance related to length of word sought. E.G. 3 is a bad tolerance for a 2-letter word
+        tolerance = 1
+        if len(next_part) > 4:
+            tolerance = 2
+        if len(next_part) > 8:
+            tolerance = 3
+        tolerance_str = "{e<=" + str(tolerance) + "}"
+        next_part_fuzzy = regex.compile(f"(?:\\b{next_part}){tolerance_str}\\b")
         print(next_part_fuzzy, haystack)
         if regex.search(next_part_fuzzy, haystack):
             return True
