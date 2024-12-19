@@ -34,7 +34,7 @@ def test_term_search(next_part, haystack, fuzzy=False):
         if len(next_part) > 8:
             tolerance = 3
         tolerance_str = "{e<=" + str(tolerance) + "}"
-        next_part_fuzzy = regex.compile(f"(?:\\b{next_part}){tolerance_str}\\b")
+        next_part_fuzzy = regex.compile(f"(?:\\b{next_part}){tolerance_str}")
         print(next_part_fuzzy, haystack)
         if regex.search(next_part_fuzzy, haystack):
             return True
