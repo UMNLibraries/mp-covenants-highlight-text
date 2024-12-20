@@ -240,7 +240,7 @@ def lambda_handler(event, context):
     else:
         status = 400
         message = 'Error: No highlightable text found. Returning original key.'
-        highlight_key = key
+        highlight_key = img_in_path
 
     return {
         "statusCode": status,
