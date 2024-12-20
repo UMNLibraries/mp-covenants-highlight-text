@@ -227,11 +227,12 @@ def lambda_handler(event, context):
 
     print(words_to_highlight)
 
+    img_in_path = str(PurePath(re.sub(r'ocr/hits(?:_fuzzy)?', 'web', key)).with_name(public_uuid + '.jpg'))
+    img_out_path = str(PurePath(re.sub(r'ocr/hits(?:_fuzzy)?', 'web_highlighted', key)).with_name(public_uuid + '__highlight.jpg'))
+
     if len(words_to_highlight) > 0:
         print(f"Found {len(words_to_highlight)} words to highlight.")
 
-        img_in_path = str(PurePath(re.sub(r'ocr/hits(?:_fuzzy)?', 'web', key)).with_name(public_uuid + '.jpg'))
-        img_out_path = str(PurePath(re.sub(r'ocr/hits(?:_fuzzy)?', 'web_highlighted', key)).with_name(public_uuid + '__highlight.jpg'))
         highlight_key = add_highlights(bucket, img_in_path, img_out_path, words_to_highlight)
 
         status = 200
