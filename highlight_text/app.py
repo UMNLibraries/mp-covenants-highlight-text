@@ -239,8 +239,8 @@ def lambda_handler(event, context):
 
     else:
         status = 400
-        message = 'Error: No highlightable text found'
-        highlight_key = None
+        message = 'Error: No highlightable text found. Returning original key.'
+        highlight_key = key
 
     return {
         "statusCode": status,
