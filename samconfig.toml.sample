@@ -8,3 +8,13 @@ s3_prefix = "covenants-highlight-text"
 region = "XXXX"
 capabilities = "CAPABILITY_IAM"
 image_repositories = []
+
+[otherenv]
+[otherenv.deploy]
+[otherenv.deploy.parameters]
+stack_name = "mp-ca-contracosta-prd-lambda-highlight-text"
+s3_bucket = "XXXX"
+s3_prefix = "lambda-highlight-text"
+region = "XXXX"
+capabilities = "CAPABILITY_IAM"
+image_repositories = []
